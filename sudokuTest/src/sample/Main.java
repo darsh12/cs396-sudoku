@@ -3,30 +3,22 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import javafx.scene.control.TextField;
 
 public class Main extends Application {
 
     private static final int NUM_OF_PAIRS = 72;
-    private static final int NUM_PER_ROW = 12;
-
-    private Tile selected = null;
-    private int clickCount = 2;
+    private static final int NUM_PER_ROW = 9;
 
     private Parent createContent() {
         Pane root = new Pane();
@@ -34,6 +26,7 @@ public class Main extends Application {
 
         char c = 'A';
         List<Tile> tiles = new ArrayList<>();
+
         for (int i = 0; i < NUM_OF_PAIRS; i++) {
             tiles.add(new Tile(String.valueOf(c)));
             tiles.add(new Tile(String.valueOf(c)));
@@ -72,53 +65,8 @@ public class Main extends Application {
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
 
-            setOnMouseClicked(this::handleMouseClick);
-            close();
         }
 
-        public void handleMouseClick(MouseEvent event) {
-            if (isOpen() || clickCount == 0)
-                return;
-
-            clickCount--;
-
-            if (selected == null) {
-                selected = this;
-                open(() -> {});
-            }
-            else {
-                open(() -> {
-                    if (!hasSameValue(selected)) {
-                        selected.close();
-                        //this.close();
-                    }
-
-                    selected = null;
-                    clickCount = 2;
-                });
-            }
-        }
-
-        public boolean isOpen() {
-            return text.getOpacity() == 1;
-        }
-
-        public void open(Runnable action) {
-            FadeTransition ft = new FadeTransition(Duration.seconds(0.5), text);
-            ft.setToValue(1);
-            ft.setOnFinished(e -> action.run());
-            ft.play();
-        }
-
-        public void close() {
-            //FadeTransition ft = new FadeTransition(Duration.seconds(0.5), text);
-            //ft.setToValue(0);
-         //   ft.play();
-        }
-
-        public boolean hasSameValue(Tile other) {
-            return text.getText().equals(other.text.getText());
-        }
     }
 
     public static void main(String[] args) {
