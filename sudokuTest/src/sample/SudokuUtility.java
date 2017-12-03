@@ -9,21 +9,10 @@ public class SudokuUtility {
     static final int digitMax = 9;
     static final int digitMin = 1;
 
-    static final int easyMin = 36;
-    static final int easyMax = 49;
-
-    static final int mediumMin = 32;
-    static final int mediumMax = 35;
-
-    static final int hardMin = 22;
-    static final int hardMax = 27;
-
 
     public static void main(String[] args) {
 
         int[][] grid = new int[9][9];
-
-        String option = "easy";
 
         Random random = new Random();
 
@@ -31,15 +20,7 @@ public class SudokuUtility {
         int col = 0;
 
         int randomNumber = 0;
-        int noOfCellsToBeGenerated = 0;
-
-        if ("easy".equals(option)) {
-            noOfCellsToBeGenerated = random.nextInt((easyMax - easyMin) + 1) + easyMin;
-        } else if ("medium".equals(option)) {
-            noOfCellsToBeGenerated = random.nextInt((mediumMax - mediumMin) + 1) + mediumMin;
-        } else {
-            noOfCellsToBeGenerated = random.nextInt((hardMax - hardMin) + 1) + hardMin;
-        }
+        int noOfCellsToBeGenerated = 40;
 
         for (int i = 1; i <= noOfCellsToBeGenerated; i++) {
             row = random.nextInt((max - min) + 1) + min;
@@ -53,13 +34,15 @@ public class SudokuUtility {
             }
 
         }
+        
+        
+//        for (int i = 0; i < 9; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                System.out.print(grid[i][j] + "  ");
+//            }
+//            System.out.println();
+//        }
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                System.out.print(grid[i][j] + "  ");
-            }
-            System.out.println();
-        }
 
     }
 
@@ -75,7 +58,9 @@ public class SudokuUtility {
         }
 
         int gridRow = row - (row % 3);
+        System.out.print(gridRow);
         int gridColumn = col - (col % 3);
+        System.out.print(gridRow);
         for (int p = gridRow; p < gridRow + 3; p++) {
             for (int q = gridColumn; q < gridColumn + 3; q++) {
                 if (array[p][q] == num) {
@@ -83,6 +68,7 @@ public class SudokuUtility {
                 }
             }
         }
+        System.out.println();
         return true;
     }
 }
