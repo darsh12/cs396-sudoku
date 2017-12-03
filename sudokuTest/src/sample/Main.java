@@ -17,22 +17,21 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-    private static final int NUM_OF_PAIRS = 72;
+    private static final int NUM_OF_PAIRS = 81;
     private static final int NUM_PER_ROW = 9;
 
     private Parent createContent() {
         Pane root = new Pane();
-        root.setPrefSize(600, 600);
+        root.setPrefSize(475, 475);
 
         char c = 'A';
         List<Tile> tiles = new ArrayList<>();
 
         for (int i = 0; i < NUM_OF_PAIRS; i++) {
-            tiles.add(new Tile(String.valueOf(c)));
+
             tiles.add(new Tile(String.valueOf(c)));
             c++;
         }
-
         Collections.shuffle(tiles);
 
         for (int i = 0; i < tiles.size(); i++) {
