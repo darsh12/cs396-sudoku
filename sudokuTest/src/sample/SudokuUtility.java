@@ -11,7 +11,7 @@ public class SudokuUtility {
 
     final int digitMax = 9;
     final int digitMin = 1;
-    int[][] grid = new int[9][9];
+    int[][] grid = new int[digitMax][digitMax];
 
     SudokuUtility() {
         startUp();

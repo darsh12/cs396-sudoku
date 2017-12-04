@@ -27,7 +27,7 @@ public class Main extends Application {
         int[][] grid = board.getBoard();
 
         Pane root = new Pane();
-        root.setPrefSize(475, 475);
+        root.setPrefSize(450, 450);
 
         char c = 'A';
         List<Tile> tiles = new ArrayList<>();
