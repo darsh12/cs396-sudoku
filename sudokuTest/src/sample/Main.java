@@ -74,10 +74,15 @@ public class Main extends Application {
             border.setFill(null);
             border.setStroke(Color.BLACK);
 
-            text.setText(String.valueOf(value));
-            text.setFont(Font.font(30));
-            if (value > 0)
+           // text.setText(String.valueOf(value));
+           // text.setFont(Font.font(30));
+            if (value > 0) {
+                text.setText(String.valueOf(value));
                 text.setEditable(false);
+            }
+            else
+                text.setText("-");
+            text.setFont(Font.font(30));
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
