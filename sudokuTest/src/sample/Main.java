@@ -21,18 +21,30 @@ public class Main extends Application {
     private static final int NUM_PER_ROW = 9;
 
     private Parent createContent() {
+
+        SudokuUtility board = new SudokuUtility();
+
+        int[][] grid = board.getBoard();
+
         Pane root = new Pane();
         root.setPrefSize(475, 475);
 
         char c = 'A';
         List<Tile> tiles = new ArrayList<>();
 
+        for (int x = 0; x < grid.length; x++) {
+            for (int y = 0; y < grid.length; y++) {
+                tiles.add(new Tile(String.valueOf(grid[x][y])));
+            }
+        }
+
+        /*
         for (int i = 0; i < NUM_OF_PAIRS; i++) {
 
             tiles.add(new Tile(String.valueOf(c)));
             c++;
         }
-        Collections.shuffle(tiles);
+        */
 
         for (int i = 0; i < tiles.size(); i++) {
             Tile tile = tiles.get(i);

@@ -1,18 +1,26 @@
 package sample;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class SudokuUtility {
 
-    static final int max = 8;
-    static final int min = 0;
+    final int max = 8;
+    final int min = 0;
 
-    static final int digitMax = 9;
-    static final int digitMin = 1;
+    final int digitMax = 9;
+    final int digitMin = 1;
+    int[][] grid = new int[9][9];
 
+    SudokuUtility() {
+        startUp();
+    }
+    public int[][] getBoard() {
+        return grid;
 
-    public static void main(String[] args) {
-
-        int[][] grid = new int[9][9];
+    }
+    private void startUp() {
 
         Random random = new Random();
 
@@ -34,8 +42,8 @@ public class SudokuUtility {
             }
 
         }
-        
-        
+
+
 //        for (int i = 0; i < 9; i++) {
 //            for (int j = 0; j < 9; j++) {
 //                System.out.print(grid[i][j] + "  ");
@@ -46,7 +54,7 @@ public class SudokuUtility {
 
     }
 
-    public static boolean noConflict(int[][] array, int row, int col, int num) {
+    private boolean noConflict(int[][] array, int row, int col, int num) {
 
         for (int i = 0; i < 9; i++) {
             if (array[row][i] == num) {
@@ -58,9 +66,8 @@ public class SudokuUtility {
         }
 
         int gridRow = row - (row % 3);
-        System.out.print(gridRow);
         int gridColumn = col - (col % 3);
-        System.out.print(gridRow);
+
         for (int p = gridRow; p < gridRow + 3; p++) {
             for (int q = gridColumn; q < gridColumn + 3; q++) {
                 if (array[p][q] == num) {
