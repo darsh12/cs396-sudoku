@@ -1,6 +1,5 @@
 package sample;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import javafx.application.Application;
@@ -8,6 +7,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -34,7 +34,7 @@ public class Main extends Application {
 
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid.length; y++) {
-                tiles.add(new Tile(String.valueOf(grid[x][y])));
+                tiles.add(new Tile(grid[x][y]));
             }
         }
 
@@ -45,6 +45,7 @@ public class Main extends Application {
             c++;
         }
         */
+        System.out.println();
 
         for (int i = 0; i < tiles.size(); i++) {
             Tile tile = tiles.get(i);
@@ -65,15 +66,18 @@ public class Main extends Application {
     }
 
     private class Tile extends StackPane {
-        private TextField text = new TextField();
+        TextField text = new TextField();
+        public Tile(Integer value) {
 
-        public Tile(String value) {
+
             Rectangle border = new Rectangle(50, 50);
             border.setFill(null);
             border.setStroke(Color.BLACK);
 
-            text.setText(value);
+            text.setText(String.valueOf(value));
             text.setFont(Font.font(30));
+            if (value > 0)
+                text.setEditable(false);
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
