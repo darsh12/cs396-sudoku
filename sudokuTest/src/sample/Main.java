@@ -14,15 +14,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.io.IOException;
-
 import java.lang.String;
-
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.InputEvent;
 
 public class Main extends Application {
@@ -39,24 +32,13 @@ public class Main extends Application {
 
         Pane root = new Pane();
         root.setPrefSize(450, 450);
-
-        char c = 'A';
         List<Tile> tiles = new ArrayList<>();
 
         for (int x = 0; x < grid.length; x++) {
             for (int y = 0; y < grid.length; y++) {
-                tiles.add(new Tile(grid[x][y]));
+                tiles.add(new Tile(grid[x][y], x, y));
             }
         }
-
-        /*
-        for (int i = 0; i < NUM_OF_PAIRS; i++) {
-
-            tiles.add(new Tile(String.valueOf(c)));
-            c++;
-        }
-        */
-        System.out.println();
 
         for (int i = 0; i < tiles.size(); i++) {
             Tile tile = tiles.get(i);
@@ -79,8 +61,12 @@ public class Main extends Application {
         TextField text = new TextField();
         private InputEvent event;
         boolean editable = true;
+        int row,col;
 
-        public Tile(Integer value) {
+        public Tile(Integer value, int x, int y) {
+
+            this.row=x;
+            this.col=y;
 
 
             Rectangle border = new Rectangle(50, 50);
@@ -103,17 +89,20 @@ public class Main extends Application {
         }
 
         public void getUserInput(InputEvent event) {
+
             int t = 0;
+            boolean validInput = false;
             try {
                 t = Integer.valueOf(this.text.getText());
-            } catch (Exception e) {
-                System.out.println("ex" + e);
-            }
-            if (this.editable && t > 0 && t < 9) {
+            } catch (Exception e) {}
 
-                System.out.println("Converted: " + t);
-                System.out.println("Editable?: " + this.editable);
-                System.out.println("Is valid input? ");
+            if (this.editable && t > 0 && t < 10) {
+                validInput = board.noConflict(board.getBoard(), this.row, this.col, t);
+
+                if (!validInput) {
+                    text.setText("-");
+                    AlertBox.display("Invalid Move", "This answer is not a valid move!");
+                }
             }
         }
 
