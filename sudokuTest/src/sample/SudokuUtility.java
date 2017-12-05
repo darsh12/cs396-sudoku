@@ -24,10 +24,9 @@ public class SudokuUtility {
 
         Random random = new Random();
 
-        int row = 0;
-        int col = 0;
+        int row,col;
 
-        int randomNumber = 0;
+        int randomNumber;
         int noOfCellsToBeGenerated = 40;
 
         for (int i = 1; i <= noOfCellsToBeGenerated; i++) {
@@ -35,32 +34,27 @@ public class SudokuUtility {
             col = random.nextInt((max - min) + 1) + min;
             randomNumber = random.nextInt((digitMax - digitMin) + 1) + digitMin;
 
-            if (grid[row][col] == 0 && noConflict(grid, row, col, randomNumber)) {
+            if (grid[row][col] == 0 && noConflict(row, col, randomNumber)) {
                 grid[row][col] = randomNumber;
             } else {
                 i--;
             }
 
         }
-
-
-//        for (int i = 0; i < 9; i++) {
-//            for (int j = 0; j < 9; j++) {
-//                System.out.print(grid[i][j] + "  ");
-//            }
-//            System.out.println();
-//        }
-
-
     }
-
-    public boolean noConflict(int[][] array, int row, int col, int num) {
+    public void addGrid(int row, int col, int num) {
+        grid[row][col] = num;
+    }
+    public void delGrid(int row, int col) {
+        grid[row][col] = 0;
+    }
+    public boolean noConflict(int row, int col, int num) {
 
         for (int i = 0; i < 9; i++) {
-            if (array[row][i] == num) {
+            if (grid[row][i] == num) {
                 return false;
             }
-            if (array[i][col] == num) {
+            if (grid[i][col] == num) {
                 return false;
             }
         }
@@ -70,12 +64,11 @@ public class SudokuUtility {
 
         for (int p = gridRow; p < gridRow + 3; p++) {
             for (int q = gridColumn; q < gridColumn + 3; q++) {
-                if (array[p][q] == num) {
+                if (grid[p][q] == num) {
                     return false;
                 }
             }
         }
-        System.out.println();
         return true;
     }
 }

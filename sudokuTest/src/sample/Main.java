@@ -2,7 +2,7 @@ package sample;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import java.lang.String;
 import javafx.scene.input.InputEvent;
+
 
 public class Main extends Application {
 
@@ -83,32 +84,43 @@ public class Main extends Application {
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
-
+            setOnMouseClicked(this::clearBox);
             setOnKeyReleased(this::getUserInput);
 
         }
-
+        public void clearBox(InputEvent event) {
+            System.out.println("here");
+            this.text.setText("");
+        }
         public void getUserInput(InputEvent event) {
 
             int t = 0;
             boolean validInput = false;
             try {
                 t = Integer.valueOf(this.text.getText());
-            } catch (Exception e) {}
-            System.out.println(t);
-            if (this.editable && t > 0 && t < 10) {
-                validInput = board.noConflict(this.row, this.col, t);
-
-                if (!validInput) {
-                    text.setText("-");
-                    board.delGrid(this.row,this.col);
-                    AlertBox.display("Invalid Move", "This answer is not a valid move!");
-                }
-                else
-                    board.addGrid(this.row,this.col,t);
+            } catch (Exception e) {
             }
-        }
+            System.out.println(t);
+            if (this.editable) {
+                if (t > 0 && t < 10) {
+                    validInput = board.noConflict(this.row, this.col, t);
 
+                    if (!validInput) {
+                        text.setText("-");
+                        board.delGrid(this.row, this.col);
+                        AlertBox.display("Invalid Move", "This answer is not a valid move!");
+                    } else
+                        board.addGrid(this.row, this.col, t);
+                }
+                /*
+                else {
+                    text.setText("-");
+                    board.delGrid(this.row, this.col);
+                }
+                */
+            }
+
+        }
 
     }
 
