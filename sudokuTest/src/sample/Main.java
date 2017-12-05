@@ -31,11 +31,9 @@ public class Main extends Application {
     private static final int NUM_PER_ROW = 9;
 
     private Tile selected = null;
-
+    SudokuUtility board = new SudokuUtility();
 
     private Parent createContent() {
-
-        SudokuUtility board = new SudokuUtility();
 
         int[][] grid = board.getBoard();
 
@@ -115,7 +113,7 @@ public class Main extends Application {
 
                 System.out.println("Converted: " + t);
                 System.out.println("Editable?: " + this.editable);
-                System.out.println("Is valid input? " );
+                System.out.println("Is valid input? ");
             }
         }
 
