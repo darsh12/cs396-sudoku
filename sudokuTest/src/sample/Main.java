@@ -21,12 +21,9 @@ import javafx.scene.input.InputEvent;
 
 public class Main extends Application {
 
-    private static final int NUM_OF_PAIRS = 81;
     private static final int NUM_PER_ROW = 9;
 
-    private Tile selected = null;
     SudokuUtility board = new SudokuUtility();
-    private int c = 0;
     private Parent createContent() {
 
         int[][] grid = board.getBoard();
@@ -78,7 +75,6 @@ public class Main extends Application {
                 text.setText(String.valueOf(value));
                 text.setEditable(false);
                 this.editable = false;
-                //text.setStyle("-fx-background-color: lightgray");
             } else
                 text.setText("");
             text.setFont(Font.font(30));
