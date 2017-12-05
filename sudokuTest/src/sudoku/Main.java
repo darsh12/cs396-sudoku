@@ -1,4 +1,4 @@
-package sample;
+package sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ public class Main extends Application {
 
 	private static final int NUM_PER_ROW = 9;
 
-
 	SudokuGenerator board = new SudokuGenerator();
 
 	private Parent createContent() {
@@ -39,7 +38,7 @@ public class Main extends Application {
 			}
 		}
 
-		// Creaye a tile for each input box
+		// Create a tile for each input box
 		for (int i = 0; i < tiles.size(); i++) {
 			Tile tile = tiles.get(i);
 			tile.setTranslateX(50 * (i % NUM_PER_ROW));
@@ -71,11 +70,11 @@ public class Main extends Application {
 			border.setStroke(Color.BLACK);
 
 			// 0 means a generated hole in the board for user to fill in.
-            // So if its not 0, set it as the input box and do styling
+			// So if its not 0, set it as the input box and do styling
 			if (value > 0) {
 				text.setText(String.valueOf(value));
 				text.setEditable(false);
-				this.editable = false; // make it non editable so user cant change set values
+				this.editable = false; // make it non editable so user can't change set values
 				text.setStyle("-fx-background-color: ivory");
 				// If it is blank, set box as blank
 			} else
@@ -84,7 +83,7 @@ public class Main extends Application {
 
 			setAlignment(Pos.CENTER);
 			getChildren().addAll(border, text);
-			// Dtects when user types in the box
+			// Detects when user types in the box
 			setOnKeyReleased(this::getUserInput);
 
 		}
@@ -102,18 +101,19 @@ public class Main extends Application {
 
 			// Checks if block is a user editable one
 			if (this.editable) {
-			    // Makes sure its in correct range
+				// Makes sure its in correct range
 				if (t > 0 && t < 10) {
-				    // Checks if the move is valid
+					// Checks if the move is valid
 					validInput = board.checkConflict(this.row, this.col, t);
 
-					// If its not, remove the user inputted text and make sure nothing is in the grid.
+					// If its not, remove the user inputed text and make sure nothing is in the
+					// grid.
 					if (!validInput) {
 						text.setText("");
 						board.delGrid(this.row, this.col);
 						text.setStyle("-fx-background-color: red");
 						AlertBox.display("Invalid Move", "This answer is not a valid move!");
-                    // Otherwise add the spot to the grid
+						// Otherwise add the spot to the grid
 					} else {
 						board.addGrid(this.row, this.col, t);
 						text.setStyle("-fx-background-color: green");
