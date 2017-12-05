@@ -32,12 +32,14 @@ public class Main extends Application {
 		root.setPrefSize(450, 450);
 		List<Tile> tiles = new ArrayList<>();
 
+		// Add each element from generated array to the Tile list to use as input box
 		for (int x = 0; x < grid.length; x++) {
 			for (int y = 0; y < grid.length; y++) {
 				tiles.add(new Tile(grid[x][y], x, y));
 			}
 		}
 
+		// Creaye a tile for each input box
 		for (int i = 0; i < tiles.size(); i++) {
 			Tile tile = tiles.get(i);
 			tile.setTranslateX(50 * (i % NUM_PER_ROW));
@@ -68,17 +70,21 @@ public class Main extends Application {
 			border.setFill(null);
 			border.setStroke(Color.BLACK);
 
+			// 0 means a generated hole in the board for user to fill in.
+            // So if its not 0, set it as the input box and do styling
 			if (value > 0) {
 				text.setText(String.valueOf(value));
 				text.setEditable(false);
-				this.editable = false;
+				this.editable = false; // make it non editable so user cant change set values
 				text.setStyle("-fx-background-color: ivory");
+				// If it is blank, set box as blank
 			} else
 				text.setText("");
 			text.setFont(Font.font(30));
 
 			setAlignment(Pos.CENTER);
 			getChildren().addAll(border, text);
+			// Dtects when user types in the box
 			setOnKeyReleased(this::getUserInput);
 
 		}
@@ -87,29 +93,38 @@ public class Main extends Application {
 
 			int t = 0;
 			boolean validInput = false;
+			// Has to use try to avoid errors with backspace for example
 			try {
 				t = Integer.valueOf(this.text.getText());
+				// No need to bother catching it, will simply be ignored.
 			} catch (Exception e) {
 			}
 
+			// Checks if block is a user editable one
 			if (this.editable) {
+			    // Makes sure its in correct range
 				if (t > 0 && t < 10) {
+				    // Checks if the move is valid
 					validInput = board.checkConflict(this.row, this.col, t);
 
+					// If its not, remove the user inputted text and make sure nothing is in the grid.
 					if (!validInput) {
 						text.setText("");
 						board.delGrid(this.row, this.col);
 						text.setStyle("-fx-background-color: red");
 						AlertBox.display("Invalid Move", "This answer is not a valid move!");
-
+                    // Otherwise add the spot to the grid
 					} else {
 						board.addGrid(this.row, this.col, t);
 						text.setStyle("-fx-background-color: green");
+
+						// If true, the user has completed board
 						if (board.userWin()) {
 							AlertBox.display("You WIN!", "You completed the puzzle, great job!");
 							System.exit(1);
 						}
 					}
+					// Used if the user enters invalid input such as -1
 				} else {
 					text.setText("");
 					board.delGrid(this.row, this.col);
