@@ -11,10 +11,10 @@ public class SudokuGenerator {
 		generate();
 	}
 
-	public int[][] generate() {
+	public int[][] generate() {	
 		grid = new int[9][9];
 		boardGenerator(0, 0);
-		deleteNumbers(1);
+		deleteNumbers(45);	//Delete number of numbers from the board
 		return grid;
 	}
 
@@ -97,7 +97,7 @@ public class SudokuGenerator {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				double chance = delete / square;
-				if (Math.random() <= chance) {
+				if (Math.random() <= chance) {	//Delete random holes
 					grid[i][j] = 0;
 					delete--;
 				}

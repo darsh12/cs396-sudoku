@@ -2,7 +2,6 @@ package sample;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.input.MouseEvent;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -18,117 +17,109 @@ import javafx.stage.Stage;
 import java.lang.String;
 import javafx.scene.input.InputEvent;
 
-
 public class Main extends Application {
 
-    private static final int NUM_PER_ROW = 9;
-
-<<<<<<< HEAD
-    private Tile selected = null;
-    SudokuGenerator board = new SudokuGenerator();
-
-=======
-    SudokuUtility board = new SudokuUtility();
->>>>>>> 600bb6918036bea2dcd44d6eec9745a48ca57aec
-    private Parent createContent() {
-
-        int[][] grid = board.generate();
-
-        Pane root = new Pane();
-        root.setPrefSize(450, 450);
-        List<Tile> tiles = new ArrayList<>();
-
-        for (int x = 0; x < grid.length; x++) {
-            for (int y = 0; y < grid.length; y++) {
-                tiles.add(new Tile(grid[x][y], x, y));
-            }
-        }
-
-        for (int i = 0; i < tiles.size(); i++) {
-            Tile tile = tiles.get(i);
-            tile.setTranslateX(50 * (i % NUM_PER_ROW));
-            tile.setTranslateY(50 * (i / NUM_PER_ROW));
-            root.getChildren().add(tile);
-        }
-
-        return root;
-    }
+	private static final int NUM_PER_ROW = 9;
 
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setScene(new Scene(createContent()));
-        primaryStage.show();
-    }
+	SudokuGenerator board = new SudokuGenerator();
 
-    private class Tile extends StackPane {
-        TextField text = new TextField();
-        private InputEvent event;
-        boolean editable = true;
-        int row,col;
+	private Parent createContent() {
 
-        public Tile(Integer value, int x, int y) {
+		int[][] grid = board.generate();
 
-            this.row=x;
-            this.col=y;
+		Pane root = new Pane();
+		root.setPrefSize(450, 450);
+		List<Tile> tiles = new ArrayList<>();
 
+		for (int x = 0; x < grid.length; x++) {
+			for (int y = 0; y < grid.length; y++) {
+				tiles.add(new Tile(grid[x][y], x, y));
+			}
+		}
 
-            Rectangle border = new Rectangle(50, 50);
-            border.setFill(null);
-            border.setStroke(Color.BLACK);
+		for (int i = 0; i < tiles.size(); i++) {
+			Tile tile = tiles.get(i);
+			tile.setTranslateX(50 * (i % NUM_PER_ROW));
+			tile.setTranslateY(50 * (i / NUM_PER_ROW));
+			root.getChildren().add(tile);
+		}
 
-            if (value > 0) {
-                text.setText(String.valueOf(value));
-                text.setEditable(false);
-                this.editable = false;
-                text.setStyle("-fx-background-color: ivory");
-            } else
-                text.setText("");
-            text.setFont(Font.font(30));
+		return root;
+	}
 
-            setAlignment(Pos.CENTER);
-            getChildren().addAll(border, text);
-            setOnKeyReleased(this::getUserInput);
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		primaryStage.setScene(new Scene(createContent()));
+		primaryStage.show();
+	}
 
-        }
-        public void getUserInput(InputEvent event) {
+	private class Tile extends StackPane {
+		TextField text = new TextField();
+		boolean editable = true;
+		int row, col;
 
-            int t = 0;
-            boolean validInput = false;
-            try {
-                t = Integer.valueOf(this.text.getText());
-            } catch (Exception e) {
-            }
+		public Tile(Integer value, int x, int y) {
 
-            if (this.editable) {
-                if (t > 0 && t < 10) {
-                    validInput = board.checkConflict(this.row, this.col, t);
+			this.row = x;
+			this.col = y;
 
-                    if (!validInput) {
-                        text.setText("");
-                        board.delGrid(this.row, this.col);
-                        text.setStyle("-fx-background-color: red");
-                        AlertBox.display("Invalid Move", "This answer is not a valid move!");
+			Rectangle border = new Rectangle(50, 50);
+			border.setFill(null);
+			border.setStroke(Color.BLACK);
 
-                    } else {
-                        board.addGrid(this.row, this.col, t);
-                        text.setStyle("-fx-background-color: green");
-                        if (board.userWin())
-                            AlertBox.display("You WIN!", "You completed the puzzle, great job!");
-                    }
-                }
-                else {
-                    text.setText("");
-                    board.delGrid(this.row, this.col);
-                }
+			if (value > 0) {
+				text.setText(String.valueOf(value));
+				text.setEditable(false);
+				this.editable = false;
+				text.setStyle("-fx-background-color: ivory");
+			} else
+				text.setText("");
+			text.setFont(Font.font(30));
 
-            }
+			setAlignment(Pos.CENTER);
+			getChildren().addAll(border, text);
+			setOnKeyReleased(this::getUserInput);
 
-        }
+		}
 
-    }
+		public void getUserInput(InputEvent event) {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
+			int t = 0;
+			boolean validInput = false;
+			try {
+				t = Integer.valueOf(this.text.getText());
+			} catch (Exception e) {
+			}
+
+			if (this.editable) {
+				if (t > 0 && t < 10) {
+					validInput = board.checkConflict(this.row, this.col, t);
+
+					if (!validInput) {
+						text.setText("");
+						board.delGrid(this.row, this.col);
+						text.setStyle("-fx-background-color: red");
+						AlertBox.display("Invalid Move", "This answer is not a valid move!");
+
+					} else {
+						board.addGrid(this.row, this.col, t);
+						text.setStyle("-fx-background-color: green");
+						if (board.userWin())
+							AlertBox.display("You WIN!", "You completed the puzzle, great job!");
+					}
+				} else {
+					text.setText("");
+					board.delGrid(this.row, this.col);
+				}
+
+			}
+
+		}
+
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }
