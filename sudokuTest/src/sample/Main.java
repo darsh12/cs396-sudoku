@@ -75,6 +75,7 @@ public class Main extends Application {
                 text.setText(String.valueOf(value));
                 text.setEditable(false);
                 this.editable = false;
+                text.setStyle("-fx-background-color: ivory");
             } else
                 text.setText("");
             text.setFont(Font.font(30));
