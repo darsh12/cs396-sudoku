@@ -54,7 +54,7 @@ public class SudokuUtility {
 
     }
 
-    private boolean noConflict(int[][] array, int row, int col, int num) {
+    public boolean noConflict(int[][] array, int row, int col, int num) {
 
         for (int i = 0; i < 9; i++) {
             if (array[row][i] == num) {
