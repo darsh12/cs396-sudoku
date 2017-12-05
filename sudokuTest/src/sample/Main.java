@@ -95,14 +95,17 @@ public class Main extends Application {
             try {
                 t = Integer.valueOf(this.text.getText());
             } catch (Exception e) {}
-
+            System.out.println(t);
             if (this.editable && t > 0 && t < 10) {
-                validInput = board.noConflict(board.getBoard(), this.row, this.col, t);
+                validInput = board.noConflict(this.row, this.col, t);
 
                 if (!validInput) {
                     text.setText("-");
+                    board.delGrid(this.row,this.col);
                     AlertBox.display("Invalid Move", "This answer is not a valid move!");
                 }
+                else
+                    board.addGrid(this.row,this.col,t);
             }
         }
 
