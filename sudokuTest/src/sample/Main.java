@@ -21,12 +21,15 @@ import javafx.scene.input.InputEvent;
 
 public class Main extends Application {
 
-    private static final int NUM_OF_PAIRS = 81;
     private static final int NUM_PER_ROW = 9;
 
+<<<<<<< HEAD
     private Tile selected = null;
     SudokuGenerator board = new SudokuGenerator();
 
+=======
+    SudokuUtility board = new SudokuUtility();
+>>>>>>> 600bb6918036bea2dcd44d6eec9745a48ca57aec
     private Parent createContent() {
 
         int[][] grid = board.generate();
@@ -78,6 +81,7 @@ public class Main extends Application {
                 text.setText(String.valueOf(value));
                 text.setEditable(false);
                 this.editable = false;
+                text.setStyle("-fx-background-color: ivory");
             } else
                 text.setText("");
             text.setFont(Font.font(30));
@@ -95,7 +99,7 @@ public class Main extends Application {
                 t = Integer.valueOf(this.text.getText());
             } catch (Exception e) {
             }
-            System.out.println(t);
+
             if (this.editable) {
                 if (t > 0 && t < 10) {
                     validInput = board.checkConflict(this.row, this.col, t);
@@ -103,10 +107,12 @@ public class Main extends Application {
                     if (!validInput) {
                         text.setText("");
                         board.delGrid(this.row, this.col);
+                        text.setStyle("-fx-background-color: red");
                         AlertBox.display("Invalid Move", "This answer is not a valid move!");
+
                     } else {
                         board.addGrid(this.row, this.col, t);
-
+                        text.setStyle("-fx-background-color: green");
                         if (board.userWin())
                             AlertBox.display("You WIN!", "You completed the puzzle, great job!");
                     }
