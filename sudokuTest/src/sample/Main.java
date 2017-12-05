@@ -26,7 +26,7 @@ public class Main extends Application {
 
     private Tile selected = null;
     SudokuUtility board = new SudokuUtility();
-
+    private int c = 0;
     private Parent createContent() {
 
         int[][] grid = board.getBoard();
@@ -78,6 +78,7 @@ public class Main extends Application {
                 text.setText(String.valueOf(value));
                 text.setEditable(false);
                 this.editable = false;
+                //text.setStyle("-fx-background-color: lightgray");
             } else
                 text.setText("");
             text.setFont(Font.font(30));
@@ -103,10 +104,11 @@ public class Main extends Application {
                     if (!validInput) {
                         text.setText("");
                         board.delGrid(this.row, this.col);
+                        text.setStyle("-fx-background-color: red");
                         AlertBox.display("Invalid Move", "This answer is not a valid move!");
                     } else {
                         board.addGrid(this.row, this.col, t);
-
+                        text.setStyle("-fx-background-color: green");
                         if (board.userWin())
                             AlertBox.display("You WIN!", "You completed the puzzle, great job!");
                     }
