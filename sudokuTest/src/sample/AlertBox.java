@@ -25,7 +25,7 @@ public class AlertBox {
 
         Label label = new Label();
         label.setText(message);
-        Button closeButton = new Button("Try again");
+        Button closeButton = new Button("Okay");
         closeButton.setOnAction(e -> window.close());
 
         VBox layout = new VBox(10);

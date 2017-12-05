@@ -105,8 +105,10 @@ public class Main extends Application {
 					} else {
 						board.addGrid(this.row, this.col, t);
 						text.setStyle("-fx-background-color: green");
-						if (board.userWin())
+						if (board.userWin()) {
 							AlertBox.display("You WIN!", "You completed the puzzle, great job!");
+							System.exit(1);
+						}
 					}
 				} else {
 					text.setText("");
