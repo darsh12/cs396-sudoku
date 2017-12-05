@@ -25,11 +25,11 @@ public class Main extends Application {
     private static final int NUM_PER_ROW = 9;
 
     private Tile selected = null;
-    SudokuUtility board = new SudokuUtility();
+    SudokuGenerator board = new SudokuGenerator();
 
     private Parent createContent() {
 
-        int[][] grid = board.getBoard();
+        int[][] grid = board.generate();
 
         Pane root = new Pane();
         root.setPrefSize(450, 450);
@@ -98,7 +98,7 @@ public class Main extends Application {
             System.out.println(t);
             if (this.editable) {
                 if (t > 0 && t < 10) {
-                    validInput = board.noConflict(this.row, this.col, t);
+                    validInput = board.checkConflict(this.row, this.col, t);
 
                     if (!validInput) {
                         text.setText("");
