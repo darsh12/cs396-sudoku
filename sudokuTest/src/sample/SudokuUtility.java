@@ -42,7 +42,18 @@ public class SudokuUtility {
 
         }
     }
-    public void addGrid(int row, int col, int num) {
+    public boolean userWin() {
+        boolean win = true;
+        for (int x = 0; x < digitMax; x++) {
+            for (int y = 0; y < digitMax; y++) {
+                if (grid[x][y] == 0)
+                    win = false;
+            }
+        }
+        return win;
+    }
+
+        public void addGrid(int row, int col, int num) {
         grid[row][col] = num;
     }
     public void delGrid(int row, int col) {

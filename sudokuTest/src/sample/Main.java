@@ -79,18 +79,13 @@ public class Main extends Application {
                 text.setEditable(false);
                 this.editable = false;
             } else
-                text.setText("-");
+                text.setText("");
             text.setFont(Font.font(30));
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
-            setOnMouseClicked(this::clearBox);
             setOnKeyReleased(this::getUserInput);
 
-        }
-        public void clearBox(InputEvent event) {
-            System.out.println("here");
-            this.text.setText("");
         }
         public void getUserInput(InputEvent event) {
 
@@ -106,18 +101,21 @@ public class Main extends Application {
                     validInput = board.noConflict(this.row, this.col, t);
 
                     if (!validInput) {
-                        text.setText("-");
+                        text.setText("");
                         board.delGrid(this.row, this.col);
                         AlertBox.display("Invalid Move", "This answer is not a valid move!");
-                    } else
+                    } else {
                         board.addGrid(this.row, this.col, t);
+
+                        if (board.userWin())
+                            AlertBox.display("You WIN!", "You completed the puzzle, great job!");
+                    }
                 }
-                /*
                 else {
-                    text.setText("-");
+                    text.setText("");
                     board.delGrid(this.row, this.col);
                 }
-                */
+
             }
 
         }
