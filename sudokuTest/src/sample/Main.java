@@ -1,4 +1,5 @@
 package sample;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,24 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
+
+import java.io.IOException;
+
+import java.lang.String;
+
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.input.InputEvent;
 
 public class Main extends Application {
 
     private static final int NUM_OF_PAIRS = 81;
     private static final int NUM_PER_ROW = 9;
+
+    private Tile selected = null;
+
 
     private Parent createContent() {
 
@@ -56,8 +69,7 @@ public class Main extends Application {
 
         return root;
     }
-    
- 
+
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -67,6 +79,9 @@ public class Main extends Application {
 
     private class Tile extends StackPane {
         TextField text = new TextField();
+        private InputEvent event;
+        boolean editable = true;
+
         public Tile(Integer value) {
 
 
@@ -74,20 +89,36 @@ public class Main extends Application {
             border.setFill(null);
             border.setStroke(Color.BLACK);
 
-           // text.setText(String.valueOf(value));
-           // text.setFont(Font.font(30));
             if (value > 0) {
                 text.setText(String.valueOf(value));
                 text.setEditable(false);
-            }
-            else
+                this.editable = false;
+            } else
                 text.setText("-");
             text.setFont(Font.font(30));
 
             setAlignment(Pos.CENTER);
             getChildren().addAll(border, text);
 
+            setOnKeyReleased(this::getUserInput);
+
         }
+
+        public void getUserInput(InputEvent event) {
+            int t = 0;
+            try {
+                t = Integer.valueOf(this.text.getText());
+            } catch (Exception e) {
+                System.out.println("ex" + e);
+            }
+            if (this.editable && t > 0 && t < 9) {
+
+                System.out.println("Converted: " + t);
+                System.out.println("Editable?: " + this.editable);
+                System.out.println("Is valid input? " );
+            }
+        }
+
 
     }
 
