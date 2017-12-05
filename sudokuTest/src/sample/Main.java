@@ -92,7 +92,7 @@ public class Main extends Application {
                 t = Integer.valueOf(this.text.getText());
             } catch (Exception e) {
             }
-            System.out.println(t);
+
             if (this.editable) {
                 if (t > 0 && t < 10) {
                     validInput = board.noConflict(this.row, this.col, t);
@@ -102,6 +102,7 @@ public class Main extends Application {
                         board.delGrid(this.row, this.col);
                         text.setStyle("-fx-background-color: red");
                         AlertBox.display("Invalid Move", "This answer is not a valid move!");
+
                     } else {
                         board.addGrid(this.row, this.col, t);
                         text.setStyle("-fx-background-color: green");
